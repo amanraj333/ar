@@ -4,7 +4,7 @@ metadata:
   name: my-pod
 spec:
   containers:
-  - name: Aman-img
+  - name: aman-img
     image: 3aman/img16:v1.0.0
     ports:
       - containerPort: 3000
