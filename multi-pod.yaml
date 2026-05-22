@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: aman-img
+    image: 3aman/img16:v1.0.0
+    ports:
+      - containerPort: 3000
+  
+  containers:
+  - name: aman-cont
+    image: 3aman/img1:v1.0.0
+    ports:
+      - containerPort: 5000
