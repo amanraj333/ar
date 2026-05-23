@@ -1,23 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
-  name: aman-deploy 
-  labels: 
+  name: aman-deploy
+  labels:
     first: app
 
-spec: # behaviour of replica set
+spec:
   replicas: 3
-  selectors:
-    matchLables:
+
+  selector:
+    matchLabels:
       app: web
+
   template:
     metadata:
       labels:
-        app: web  
-    spec: # behaviour of the pod
-      containers: 
-        - name: raj-cont
-          image: 3aman/img1:v1.0.0
-          ports:
-            - containerPort: 7777
+        app: web
+
+    spec:
+      containers:
+      - name: raj-cont
+        image: 3aman/img1:v1.0.0
+        ports:
+        - containerPort: 7777
       
