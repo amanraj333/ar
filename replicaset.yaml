@@ -1,22 +1,26 @@
 apiVersion: apps/v1
 kind: ReplicaSet
+
 metadata:
-  name: aman-Replica
-  labels: 
+  name: aman-replica
+  labels:
     app: web
 
-spec: # define the behaviour of replicaset 
+spec:
   replicas: 3
-  selectors: 
-    matchLables: 
-      web: aman
-  template: 
-    labels:
-      web: aman
 
-spec:  #define bahaviour of the pot
-  containers:
-    - image: 3aman/img1:v1.0.0
-      name: aman-cont
-      ports:
-        - containerPort: 3333
+  selector:
+    matchLabels:
+      app: nginx
+
+  template:
+    metadata:
+      labels:
+        app: nginx
+
+    spec:
+      containers:
+      - name: aman-cont
+        image: nginx
+        ports:
+        - containerPort: 80
