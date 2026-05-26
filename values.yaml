@@ -1,0 +1,33 @@
+replicaCount: 2
+
+labels:
+  app: myntra
+
+image:
+  repository: 3aman/myntra-frontend
+  tag: latest
+
+container:
+  name: myntra-container
+  port: 80
+
+service:
+  name: myntra-service
+  type: NodePort
+  port: 80
+  targetPort: 80
+  nodePort: 30007
+
+configMap:
+  name: myntra-config
+  data:
+    APP_NAME: myntra-clone
+    ENV: production
+    PORT: "80"
+
+secret:
+  name: aman-secret
+  type: Opaque
+  data:
+    DB_User: QURNSU4=
+    DB_Pass: QW1hbjEyMw==

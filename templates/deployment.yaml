@@ -1,0 +1,102 @@
+# apiVersion: apps/v1
+# kind: Deployment
+
+# metadata:
+#   name: myntra-deployment
+
+# spec:
+#   replicas: {{.values.replicas}}
+
+#   selector:
+#     matchLabels:
+#       app: {{.value.labels.myntra}}
+
+#   template:
+#     metadata:
+#       labels:
+#         app: myntra
+
+#     spec:
+#       containers:
+#       - name: {{.values.containers.name}} #myntra-container
+#         image: {{.values.container.image}} #3aman/myntra-frontend:v1
+
+#         ports:
+#         - containerPort: {{.values.container.port}}  #80
+
+#         envFrom:
+#         - configMapRef:
+#             name:  {{.values.configMap.name}} #myntra-config
+#           secretRef:
+#             name: aman-secret
+# ---
+# apiVersion: v1
+# kind: Service
+
+# metadata:
+#   name:  {{.values.service.name}} #myntra-service
+
+# spec:
+#   selector:
+#     app: myntra
+
+#   ports:
+#   - protocol: TCP
+#     port: {{.values.service.port}} #80
+#     targetPort: {{.values.servive.targetPort}} #80
+#     nodePort: 30007
+
+#   type: {{.values.}} #NodePort
+
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: myntra-deployment
+
+spec:
+  replicas: {{ .Values.replicaCount }}
+
+  selector:
+    matchLabels:
+      app: {{ .Values.labels.app }}
+
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.labels.app }}
+
+    spec:
+      containers:
+        - name: {{ .Values.container.name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+
+          ports:
+            - containerPort: {{ .Values.container.port }}
+
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.configMap.name }}
+
+            - secretRef:
+                name: {{ .Values.secret.name }}
+
+---
+
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: {{ .Values.service.name }}
+
+spec:
+  selector:
+    app: {{ .Values.labels.app }}
+
+  type: {{ .Values.service.type }}
+
+  ports:
+    - protocol: TCP
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
+      nodePort: {{ .Values.service.nodePort }}
