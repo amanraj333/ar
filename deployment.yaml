@@ -2,41 +2,47 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: aman-deploy
-  labels:
-    first: app
+  name: myntra-deployment
 
 spec:
-  replicas: 3
+  replicas: 2
 
   selector:
     matchLabels:
-      app: web
+      app: myntra
 
   template:
     metadata:
       labels:
-        app: web
+        app: myntra
 
     spec:
       containers:
-      - name: raj-cont
-        image: 3aman/img1:v1.0.0
+      - name: myntra-container
+        image: 3aman/myntra-front:v1
+
         ports:
-        - containerPort: 7777
+        - containerPort: 80
+
+        envFrom:
+        - configMapRef:
+            name: myntra-config
 
 ---
 apiVersion: v1
 kind: Service
+
 metadata:
-  name: aman-service
+  name: myntra-service
+
 spec:
   selector:
-    app: web
-  ports:
-    - protocol: TCP
-      port: 90
-      targetPort: 7000
-  type: ClusterIP
-          
+    app: myntra
 
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    nodePort: 30007
+
+  type: NodePort
