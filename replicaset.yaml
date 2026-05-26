@@ -24,6 +24,9 @@ spec:
         image: nginx
         ports:
         - containerPort: 80
+          envFrom:
+            - ConfigMapRef: 
+                name: aman-map
 
 ---
 apiVersion: v1
