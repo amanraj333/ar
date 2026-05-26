@@ -27,7 +27,8 @@ spec:
         envFrom:
         - configMapRef:
             name: myntra-config
-
+          secretRef:
+            name: aman-secret
 ---
 apiVersion: v1
 kind: Service
