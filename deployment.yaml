@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: myntra-container
-        image: 3aman/myntra-front:v1
+        image: 3aman/myntra-frontend:v1
 
         ports:
         - containerPort: 80
